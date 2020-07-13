@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+
+import Home from "./Home/Home";
+import Pathfinding from "./Pathfinding/Pathfinding";
+import Sorting from "./Sorting/Sorting";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <h1>Sorting & Pathfinding Visualizer</h1>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/Sorting" component={Sorting} />
+          <Route path="/Pathfinding" component={Pathfinding} />
+        </Switch>
+      </BrowserRouter>
+
+      <div className="Footer">
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Created by Steven Te. View the source code{" "}
+          <a href="https://github.com/testeven152/sorting-pathfinding-visualizer">
+            here
+          </a>
+          .
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      </div>
     </div>
   );
 }
