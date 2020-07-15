@@ -1,3 +1,5 @@
+import { swap } from "./swap";
+
 export function getBubbleSortAnimations(array) {
   const animations = [];
   if (array.length <= 1) return array;
@@ -5,27 +7,25 @@ export function getBubbleSortAnimations(array) {
   return animations;
 }
 
-function bubbleSort(mainArray, animations) {
+function bubbleSort(array, animations) {
   var swapped = false;
 
-  for (let i = 0; i < mainArray.length - 1; i++) {
+  for (let i = 0; i < array.length - 1; i++) {
     swapped = false;
-    for (let j = 0; j < mainArray.length - i - 1; j++) {
+    for (let j = 0; j < array.length - i - 1; j++) {
       // push indices to highlight and show what elements
       // are being compared
       animations.push([j, j + 1]);
       animations.push([j, j + 1]);
 
-      if (mainArray[j] > mainArray[j + 1]) {
+      if (array[j] > array[j + 1]) {
         // push indices and their swapped elements to apply
         // to array on screen
-        animations.push([j, mainArray[j + 1]]);
-        animations.push([j + 1, mainArray[j]]);
+        animations.push([j, array[j + 1]]);
+        animations.push([j + 1, array[j]]);
 
         // swap the elements in array
-        let temp = mainArray[j];
-        mainArray[j] = mainArray[j + 1];
-        mainArray[j + 1] = temp;
+        swap(array, j, j + 1);
 
         // make sure the loop runs again, because
         // the algorithm is not done sorting
@@ -33,8 +33,8 @@ function bubbleSort(mainArray, animations) {
       } else {
         // if the two elements are in order,
         // don't do anything
-        animations.push([j, mainArray[j]]);
-        animations.push([j + 1, mainArray[j + 1]]);
+        animations.push([j, array[j]]);
+        animations.push([j + 1, array[j + 1]]);
       }
     }
 
