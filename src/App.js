@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import Home from "./Home/Home";
@@ -11,7 +10,17 @@ import Sorting from "./Sorting/Sorting";
 function App() {
   return (
     <div className="App">
-      <h1>Sorting & Pathfinding Visualizer</h1>
+      <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+        crossorigin="anonymous"
+      />
+
+      <div className="Header">
+        <h1>Sorting & Pathfinding Visualizer</h1>
+      </div>
+
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />

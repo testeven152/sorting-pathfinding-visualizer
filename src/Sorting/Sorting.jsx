@@ -10,12 +10,18 @@ import { getSelectionSortAnimations } from "./Algorithms/selectionsort";
 
 import "./Sorting.css";
 
+const ARRAY_SIZE = 12;
+const PRIMARY_COLOR = "#c0c0c0";
+const SECONDARY_COLOR = "#34eb61";
+const ANIMATION_SPEED = 150;
+
 export default class Sorting extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       array: [],
+      disabledButtons: false,
     };
   }
 
@@ -26,32 +32,141 @@ export default class Sorting extends React.Component {
   resetArray() {
     console.log("Resetting array...");
 
-    const array = [];
-    for (let i = 0; i < 20; i++) {
-      array.push(randomInt(1, 99));
+    const newarray = [];
+    for (let i = 0; i < ARRAY_SIZE; i++) {
+      newarray.push(randomInt(1, 99));
     }
 
-    this.setState({ array });
+    this.setState({ array: newarray, disabledButtons: false });
   }
 
-  applyAnimations(type) {
-    console.log("Running %s Sort...", type);
+  toggleButtons() {
+    if (this.state.disabledButtons) {
+      // enable button group
+      document.getElementById("bubblesortbutton").disabled = false;
+      document.getElementById("mergesortbutton").disabled = false;
+      document.getElementById("insertionsortbutton").disabled = false;
+      document.getElementById("selectionsortbutton").disabled = false;
+      document.getElementById("quicksortbutton").disabled = false;
+      document.getElementById("resetbutton").disabled = false;
+      this.setState({ disabledButtons: false });
+    } else {
+      // disable button group
+      document.getElementById("bubblesortbutton").disabled = true;
+      document.getElementById("mergesortbutton").disabled = true;
+      document.getElementById("insertionsortbutton").disabled = true;
+      document.getElementById("selectionsortbutton").disabled = true;
+      document.getElementById("quicksortbutton").disabled = true;
+      document.getElementById("resetbutton").disabled = true;
+      this.setState({ disabledButtons: true });
+    }
+  }
 
-    var animations = [];
+  mergeSort() {
+    console.log("Running Merge Sort...");
+    this.toggleButtons();
 
-    if (type === "Bubble") {
-      animations = getBubbleSortAnimations(this.state.array);
-    } else if (type === "Merge") {
-      animations = getMergeSortAnimations(this.state.array);
-    } else if (type === "Insertion") {
-      animations = getInsertionSortAnimations(this.state.array);
-    } else if (type === "Selection") {
-      animations = getSelectionSortAnimations(this.state.array);
-    } else if (type === "Quick") {
-      animations = getQuickSortAnimations(this.state.array);
+    const animations = getMergeSortAnimations(this.state.array);
+
+    for (let i = 0; i < animations.length; i++) {
+      const arrayElements = document.getElementsByClassName("array-element");
+      const isColorChange = i % 3 !== 2;
+      if (isColorChange) {
+        const [elementOneIdx, elementTwoIdx] = animations[i];
+        const elementOneStyle = arrayElements[elementOneIdx].style;
+        const elementTwoStyle = arrayElements[elementTwoIdx].style;
+        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+        setTimeout(() => {
+          elementOneStyle.backgroundColor = color;
+          elementTwoStyle.backgroundColor = color;
+        }, i * ANIMATION_SPEED);
+      } else {
+        setTimeout(() => {
+          const [elementOneIdx, newNumber] = animations[i];
+          arrayElements[elementOneIdx].innerHTML = newNumber;
+        }, i * ANIMATION_SPEED);
+      }
     }
 
-    console.log(animations);
+    setTimeout(() => {
+      this.toggleButtons();
+    }, (animations.length + 1) * ANIMATION_SPEED);
+  }
+
+  bubbleSort() {
+    console.log("Running Bubble Sort...");
+    this.toggleButtons();
+
+    const animations = getBubbleSortAnimations(this.state.array);
+
+    for (let i = 0; i < animations.length; i++) {
+      const arrayElements = document.getElementsByClassName("array-element");
+      const isColorChange = i % 4 < 2;
+      if (isColorChange) {
+        const [elementOneIdx, elementTwoIdx] = animations[i];
+        const elementOneStyle = arrayElements[elementOneIdx].style;
+        const elementTwoStyle = arrayElements[elementTwoIdx].style;
+        const color = i % 4 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+        setTimeout(() => {
+          elementOneStyle.backgroundColor = color;
+          elementTwoStyle.backgroundColor = color;
+        }, i * ANIMATION_SPEED);
+      } else {
+        setTimeout(() => {
+          const [elementOneIdx, newNumber] = animations[i];
+          arrayElements[elementOneIdx].innerHTML = newNumber;
+        }, i * ANIMATION_SPEED);
+      }
+    }
+
+    setTimeout(() => {
+      this.toggleButtons();
+    }, (animations.length + 1) * ANIMATION_SPEED);
+  }
+
+  selectionSort() {
+    console.log("Running Selection Sort...");
+    this.toggleButtons();
+
+    const animations = getSelectionSortAnimations(this.state.array);
+
+    for (let i = 0; i < animations.length; i++) {
+      const arrayElements = document.getElementsByClassName("array-element");
+    }
+
+    setTimeout(() => {
+      this.toggleButtons();
+    }, (animations.length + 1) * ANIMATION_SPEED);
+  }
+
+  quickSort() {
+    console.log("Running Quick Sort...");
+    this.toggleButtons();
+
+    const animations = getQuickSortAnimations(this.state.array);
+
+    for (let i = 0; i < animations.length; i++) {
+      const arrayElements = document.getElementsByClassName("array-element");
+    }
+
+    setTimeout(() => {
+      this.toggleButtons();
+    }, (animations.length + 1) * ANIMATION_SPEED);
+  }
+
+  insertionSort() {
+    console.log("Running Insertion Sort...");
+    this.toggleButtons();
+
+    const animations = getInsertionSortAnimations(this.state.array);
+
+    for (let i = 0; i < animations.length; i++) {
+      const arrayElements = document.getElementsByClassName("array-element");
+    }
+
+    setTimeout(() => {
+      this.toggleButtons();
+    }, (animations.length + 1) * ANIMATION_SPEED);
   }
 
   render() {
@@ -65,35 +180,44 @@ export default class Sorting extends React.Component {
           </Link>
           <Button
             variant="secondary"
-            onClick={() => this.applyAnimations("Bubble")}
+            id="bubblesortbutton"
+            onClick={() => this.bubbleSort()}
           >
             Bubble Sort
           </Button>
           <Button
             variant="secondary"
-            onClick={() => this.applyAnimations("Merge")}
+            id="mergesortbutton"
+            onClick={() => this.mergeSort()}
           >
             Merge Sort
           </Button>
           <Button
             variant="secondary"
-            onClick={() => this.applyAnimations("Insertion")}
+            id="insertionsortbutton"
+            onClick={() => this.insertionSort()}
           >
             Insertion Sort
           </Button>
           <Button
             variant="secondary"
-            onClick={() => this.applyAnimations("Selection")}
+            id="selectionsortbutton"
+            onClick={() => this.selectionSort()}
           >
             Selection Sort
           </Button>
           <Button
             variant="secondary"
-            onClick={() => this.applyAnimations("Quick")}
+            id="quicksortbutton"
+            onClick={() => this.quickSort()}
           >
             Quick Sort
           </Button>
-          <Button variant="primary" onClick={() => this.resetArray()}>
+          <Button
+            variant="primary"
+            id="resetbutton"
+            onClick={() => this.resetArray()}
+          >
             Reset
           </Button>
         </ButtonGroup>
