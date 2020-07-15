@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 
 import "./App.css";
 
@@ -21,13 +21,13 @@ function App() {
         <h1>Sorting & Pathfinding Visualizer</h1>
       </div>
 
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/Sorting" component={Sorting} />
           <Route path="/Pathfinding" component={Pathfinding} />
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
 
       <div className="Footer">
         <p>
