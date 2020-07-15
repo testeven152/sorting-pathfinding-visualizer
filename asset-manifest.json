@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/sorting-pathfinding-visualizer/static/css/main.9fe9e35c.chunk.css",
-    "main.js": "/sorting-pathfinding-visualizer/static/js/main.2c64aacb.chunk.js",
-    "main.js.map": "/sorting-pathfinding-visualizer/static/js/main.2c64aacb.chunk.js.map",
+    "main.js": "/sorting-pathfinding-visualizer/static/js/main.491b9bd6.chunk.js",
+    "main.js.map": "/sorting-pathfinding-visualizer/static/js/main.491b9bd6.chunk.js.map",
     "runtime-main.js": "/sorting-pathfinding-visualizer/static/js/runtime-main.3055c3fe.js",
     "runtime-main.js.map": "/sorting-pathfinding-visualizer/static/js/runtime-main.3055c3fe.js.map",
     "static/js/2.00265f07.chunk.js": "/sorting-pathfinding-visualizer/static/js/2.00265f07.chunk.js",
     "static/js/2.00265f07.chunk.js.map": "/sorting-pathfinding-visualizer/static/js/2.00265f07.chunk.js.map",
     "index.html": "/sorting-pathfinding-visualizer/index.html",
-    "precache-manifest.1302e4e0f87073d00781cb2790c0d45b.js": "/sorting-pathfinding-visualizer/precache-manifest.1302e4e0f87073d00781cb2790c0d45b.js",
+    "precache-manifest.543d9504cf5198f0ddd588f28105195b.js": "/sorting-pathfinding-visualizer/precache-manifest.543d9504cf5198f0ddd588f28105195b.js",
     "service-worker.js": "/sorting-pathfinding-visualizer/service-worker.js",
     "static/css/main.9fe9e35c.chunk.css.map": "/sorting-pathfinding-visualizer/static/css/main.9fe9e35c.chunk.css.map",
     "static/js/2.00265f07.chunk.js.LICENSE.txt": "/sorting-pathfinding-visualizer/static/js/2.00265f07.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.3055c3fe.js",
     "static/js/2.00265f07.chunk.js",
     "static/css/main.9fe9e35c.chunk.css",
-    "static/js/main.2c64aacb.chunk.js"
+    "static/js/main.491b9bd6.chunk.js"
   ]
 }
