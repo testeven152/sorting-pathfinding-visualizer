@@ -43,6 +43,7 @@ export default class Sorting extends React.Component {
   toggleButtons() {
     if (this.state.disabledButtons) {
       // enable button group
+      document.getElementById("homebutton").disabled = false;
       document.getElementById("bubblesortbutton").disabled = false;
       document.getElementById("mergesortbutton").disabled = false;
       document.getElementById("insertionsortbutton").disabled = false;
@@ -52,6 +53,7 @@ export default class Sorting extends React.Component {
       this.setState({ disabledButtons: false });
     } else {
       // disable button group
+      document.getElementById("homebutton").disabled = true;
       document.getElementById("bubblesortbutton").disabled = true;
       document.getElementById("mergesortbutton").disabled = true;
       document.getElementById("insertionsortbutton").disabled = true;
@@ -176,7 +178,9 @@ export default class Sorting extends React.Component {
       <div>
         <ButtonGroup className="sort-button-group">
           <Link to="/">
-            <Button variant="primary">Home</Button>
+            <Button variant="primary" id="homebutton">
+              Home
+            </Button>
           </Link>
           <Button
             variant="secondary"
