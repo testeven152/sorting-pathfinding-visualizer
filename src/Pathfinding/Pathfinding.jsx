@@ -1,7 +1,9 @@
 import React from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
 import Node from "./Node/Node";
+import { djikstra } from "./Algorithms/djikstra";
 
 import "./Pathfinding.css";
 
@@ -10,6 +12,7 @@ export default class Pathfinding extends React.Component {
     super(props);
     this.state = {
       grid: [],
+      mouseIsPressed: false,
     };
   }
 
@@ -18,8 +21,16 @@ export default class Pathfinding extends React.Component {
     this.setState({ grid });
   }
 
+  handleMouseDown() {}
+
+  handleMouseEnter() {}
+
+  handleMouseUp() {}
+
+  djikstra() {}
+
   render() {
-    const { grid } = this.state;
+    const { grid, mouseIsPressed } = this.state;
 
     return (
       <div>
@@ -27,7 +38,9 @@ export default class Pathfinding extends React.Component {
           <Link to="/">
             <Button variant="primary">Home</Button>
           </Link>
-          <Button variant="secondary">Djikstra's</Button>
+          <Button variant="secondary" onClick={() => this.djikstra()}>
+            Djikstra's
+          </Button>
           <Button variant="secondary">A* Search</Button>
           <Button variant="secondary">Depth-First Search</Button>
           <Button variant="secondary">Breadth-First Search</Button>

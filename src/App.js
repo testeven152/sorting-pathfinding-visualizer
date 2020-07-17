@@ -21,7 +21,7 @@ function App() {
         <h1>Sorting & Pathfinding Visualizer</h1>
       </div>
 
-      <HashRouter>
+      <HashRouter basename="/">
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/Sorting" component={Sorting} />
