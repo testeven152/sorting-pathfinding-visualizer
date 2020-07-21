@@ -21,13 +21,31 @@ export default class Pathfinding extends React.Component {
     this.setState({ grid });
   }
 
-  handleMouseDown() {}
+  handleMouseDown(row, col) {
+    const newGrid = toggleIsWall(this.state.grid, row, col);
+    this.setState({ grid: newGrid, mouseIsPressed: true });
+    console.log("handleMouseDown");
+  }
 
-  handleMouseEnter() {}
+  handleMouseEnter(row, col) {
+    const newGrid = toggleIsWall(this.state.grid, row, col);
+    this.setState({ grid: newGrid });
+    console.log("handleMouseEnter");
+  }
 
-  handleMouseUp() {}
+  handleMouseUp() {
+    this.setState({ mouseIsPressed: false });
+    console.log("handleMouseUp");
+  }
 
-  djikstra() {}
+  animateDjikstra() {
+    djikstra();
+  }
+
+  resetGrid() {
+    const newGrid = InitGrid();
+    this.setState({ grid: newGrid });
+  }
 
   render() {
     const { grid, mouseIsPressed } = this.state;
@@ -38,13 +56,15 @@ export default class Pathfinding extends React.Component {
           <Link to="/">
             <Button variant="primary">Home</Button>
           </Link>
-          <Button variant="secondary" onClick={() => this.djikstra()}>
+          <Button variant="secondary" onClick={() => this.animateDjikstra()}>
             Djikstra's
           </Button>
           <Button variant="secondary">A* Search</Button>
           <Button variant="secondary">Depth-First Search</Button>
           <Button variant="secondary">Breadth-First Search</Button>
-          <Button variant="primary">Reset</Button>
+          <Button variant="primary" onClick={() => this.resetGrid()}>
+            Reset
+          </Button>
         </ButtonGroup>
 
         <div className="grid">
@@ -57,10 +77,14 @@ export default class Pathfinding extends React.Component {
                     <Node
                       key={nodeIdx}
                       col={col}
+                      row={row}
                       isFinish={isFinish}
                       isStart={isStart}
                       isWall={isWall}
-                      row={row}
+                      mouseIsPressed={mouseIsPressed}
+                      onMouseDown={() => this.handleMouseDown()}
+                      onMouseEnter={() => this.handleMouseEnter()}
+                      onMouseUp={() => this.handleMouseUp()}
                     ></Node>
                   );
                 })}
@@ -95,4 +119,15 @@ const createNode = (row, col) => {
     isFinish: false,
     isWall: false,
   };
+};
+
+const toggleIsWall = (grid, row, col) => {
+  const newGrid = grid.slice();
+  const node = newGrid[row][col];
+  const newNode = {
+    ...node,
+    isWall: !node.isWall,
+  };
+  newGrid[row][col] = newNode;
+  return newGrid;
 };
