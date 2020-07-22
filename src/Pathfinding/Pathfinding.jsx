@@ -7,6 +7,11 @@ import { djikstra } from "./Algorithms/djikstra";
 
 import "./Pathfinding.css";
 
+const START_NODE_ROW = 10;
+const START_NODE_COL = 15;
+const END_NODE_ROW = 10;
+const END_NODE_COL = 35;
+
 export default class Pathfinding extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +44,10 @@ export default class Pathfinding extends React.Component {
   }
 
   animateDjikstra() {
-    djikstra();
+    const { grid } = this.state;
+    const startnode = grid[START_NODE_ROW][START_NODE_COL];
+    const endnode = grid[END_NODE_ROW][END_NODE_COL];
+    const visitedNodesInOrder = djikstra(grid, startnode, endnode);
   }
 
   resetGrid() {
@@ -77,14 +85,16 @@ export default class Pathfinding extends React.Component {
                     <Node
                       key={nodeIdx}
                       col={col}
-                      row={row}
                       isFinish={isFinish}
                       isStart={isStart}
                       isWall={isWall}
                       mouseIsPressed={mouseIsPressed}
-                      onMouseDown={() => this.handleMouseDown()}
-                      onMouseEnter={() => this.handleMouseEnter()}
+                      onMouseDown={(row, col) => this.handleMouseDown(row, col)}
+                      onMouseEnter={(row, col) =>
+                        this.handleMouseEnter(row, col)
+                      }
                       onMouseUp={() => this.handleMouseUp()}
+                      row={row}
                     ></Node>
                   );
                 })}
