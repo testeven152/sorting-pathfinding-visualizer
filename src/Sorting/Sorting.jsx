@@ -131,9 +131,28 @@ export default class Sorting extends React.Component {
     this.toggleButtons();
 
     const animations = getSelectionSortAnimations(this.state.array);
+    let comparing = false;
 
     for (let i = 0; i < animations.length; i++) {
       const arrayElements = document.getElementsByClassName("array-element");
+      const [elementOneIdx, elementTwoIdx] = animations[i];
+      const elementOneStyle = arrayElements[elementOneIdx].style;
+      if (elementTwoIdx === -1) {
+        setTimeout(() => {
+          const color = comparing == false ? SECONDARY_COLOR : PRIMARY_COLOR;
+          elementOneStyle.backgroundColor = color;
+          comparing = comparing == false ? true : false;
+        }, i * ANIMATION_SPEED);
+      } else if (elementTwoIdx == -2 || elementTwoIdx == -3) {
+        setTimeout(() => {
+          const color = elementTwoIdx == -2 ? SECONDARY_COLOR : PRIMARY_COLOR;
+          elementOneStyle.backgroundColor = color;
+        }, i * ANIMATION_SPEED);
+      } else {
+        setTimeout(() => {
+          arrayElements[elementOneIdx].innerHTML = elementTwoIdx;
+        }, i * ANIMATION_SPEED);
+      }
     }
 
     setTimeout(() => {

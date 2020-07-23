@@ -3,7 +3,8 @@ import { swap } from "./swap";
 export function getBubbleSortAnimations(array) {
   const animations = [];
   if (array.length <= 1) return array;
-  bubbleSort(array, animations);
+  const auxillaryarray = array.slice();
+  bubbleSort(auxillaryarray, animations);
   return animations;
 }
 
