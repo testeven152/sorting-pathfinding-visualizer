@@ -1,4 +1,5 @@
 import { swap } from "./swap";
+import { Jumbotron } from "react-bootstrap";
 
 export function getQuickSortAnimations(array) {
   const animations = [];
@@ -20,12 +21,21 @@ function partition(array, startIdx, endIdx, animations) {
   let pivot = array[endIdx];
   let i = startIdx - 1;
 
+  animations.push([endIdx, -1]);
+
   for (let j = startIdx; j <= endIdx - 1; j++) {
+    animations.push([j, -2]);
+    animations.push([j, -3]);
     if (array[j] < pivot) {
       i++;
       swap(array, i, j);
     }
   }
+
+  animations.push([endIdx, -1]);
+
+  animations.push([i + 1, array[endIdx]]);
+  animations.push([endIdx, array[i + 1]]);
   swap(array, i + 1, endIdx);
   return i + 1;
 }
