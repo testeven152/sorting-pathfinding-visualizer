@@ -1,5 +1,4 @@
 import { swap } from "./swap";
-import { Jumbotron } from "react-bootstrap";
 
 export function getQuickSortAnimations(array) {
   const animations = [];

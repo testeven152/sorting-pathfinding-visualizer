@@ -11,11 +11,17 @@ function insertionSort(array, animations) {
     let key = array[i];
     let j = i - 1;
 
+    animations.push([i, -1]);
     while (j >= 0 && array[j] > key) {
+      animations.push([j, -2]);
+      animations.push([j, -3]);
+      animations.push([j + 1, array[j]]);
       array[j + 1] = array[j];
       j--;
     }
 
+    animations.push([i, -1]);
+    animations.push([j + 1, key]);
     array[j + 1] = key;
   }
 }

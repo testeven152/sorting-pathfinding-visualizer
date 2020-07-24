@@ -11,8 +11,9 @@ import { getSelectionSortAnimations } from "./Algorithms/selectionsort";
 import "./Sorting.css";
 
 const ARRAY_SIZE = 12;
-const PRIMARY_COLOR = "#c0c0c0";
-const SECONDARY_COLOR = "#34eb61";
+const GRAY = "#c0c0c0";
+const GREEN = "#34eb61";
+const RED = "#eb4034";
 const ANIMATION_SPEED = 150;
 
 export default class Sorting extends React.Component {
@@ -77,7 +78,7 @@ export default class Sorting extends React.Component {
         const [elementOneIdx, elementTwoIdx] = animations[i];
         const elementOneStyle = arrayElements[elementOneIdx].style;
         const elementTwoStyle = arrayElements[elementTwoIdx].style;
-        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+        const color = i % 3 === 0 ? GREEN : GRAY;
         setTimeout(() => {
           elementOneStyle.backgroundColor = color;
           elementTwoStyle.backgroundColor = color;
@@ -108,7 +109,7 @@ export default class Sorting extends React.Component {
         const [elementOneIdx, elementTwoIdx] = animations[i];
         const elementOneStyle = arrayElements[elementOneIdx].style;
         const elementTwoStyle = arrayElements[elementTwoIdx].style;
-        const color = i % 4 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+        const color = i % 4 === 0 ? GREEN : GRAY;
         setTimeout(() => {
           elementOneStyle.backgroundColor = color;
           elementTwoStyle.backgroundColor = color;
@@ -139,13 +140,13 @@ export default class Sorting extends React.Component {
       const elementOneStyle = arrayElements[elementOneIdx].style;
       if (elementTwoIdx === -1) {
         setTimeout(() => {
-          const color = comparing == false ? SECONDARY_COLOR : PRIMARY_COLOR;
+          const color = comparing === false ? RED : GRAY;
           elementOneStyle.backgroundColor = color;
           comparing = !comparing;
         }, i * ANIMATION_SPEED);
-      } else if (elementTwoIdx == -2 || elementTwoIdx == -3) {
+      } else if (elementTwoIdx === -2 || elementTwoIdx === -3) {
         setTimeout(() => {
-          const color = elementTwoIdx == -2 ? SECONDARY_COLOR : PRIMARY_COLOR;
+          const color = elementTwoIdx === -2 ? GREEN : GRAY;
           elementOneStyle.backgroundColor = color;
         }, i * ANIMATION_SPEED);
       } else {
@@ -174,13 +175,13 @@ export default class Sorting extends React.Component {
       const elementOneStyle = arrayElements[elementOneIdx].style;
       if (elementTwoIdx === -1) {
         setTimeout(() => {
-          const color = comparing == false ? SECONDARY_COLOR : PRIMARY_COLOR;
+          const color = comparing === false ? RED : GRAY;
           elementOneStyle.backgroundColor = color;
           comparing = !comparing;
         }, i * ANIMATION_SPEED);
-      } else if (elementTwoIdx == -2 || elementTwoIdx == -3) {
+      } else if (elementTwoIdx === -2 || elementTwoIdx === -3) {
         setTimeout(() => {
-          const color = elementTwoIdx == -2 ? SECONDARY_COLOR : PRIMARY_COLOR;
+          const color = elementTwoIdx === -2 ? GREEN : GRAY;
           elementOneStyle.backgroundColor = color;
         }, i * ANIMATION_SPEED);
       } else {
@@ -201,8 +202,30 @@ export default class Sorting extends React.Component {
 
     const animations = getInsertionSortAnimations(this.state.array);
 
+    let comparing = false;
+
     for (let i = 0; i < animations.length; i++) {
       const arrayElements = document.getElementsByClassName("array-element");
+
+      const [elementOneIdx, elementTwoIdx] = animations[i];
+      const elementOneStyle = arrayElements[elementOneIdx].style;
+
+      if (elementTwoIdx === -1) {
+        setTimeout(() => {
+          const color = comparing === false ? RED : GRAY;
+          elementOneStyle.backgroundColor = color;
+          comparing = !comparing;
+        }, i * ANIMATION_SPEED);
+      } else if (elementTwoIdx === -2 || elementTwoIdx === -3) {
+        setTimeout(() => {
+          const color = elementTwoIdx === -2 ? GREEN : GRAY;
+          elementOneStyle.backgroundColor = color;
+        }, i * ANIMATION_SPEED);
+      } else {
+        setTimeout(() => {
+          arrayElements[elementOneIdx].innerHTML = elementTwoIdx;
+        }, i * ANIMATION_SPEED);
+      }
     }
 
     setTimeout(() => {
