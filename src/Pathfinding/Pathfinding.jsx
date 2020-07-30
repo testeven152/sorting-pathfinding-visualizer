@@ -29,18 +29,17 @@ export default class Pathfinding extends React.Component {
   handleMouseDown(row, col) {
     const newGrid = toggleIsWall(this.state.grid, row, col);
     this.setState({ grid: newGrid, mouseIsPressed: true });
-    console.log("handleMouseDown");
   }
 
   handleMouseEnter(row, col) {
+    if (!this.state.mouseIsPressed) return;
     const newGrid = toggleIsWall(this.state.grid, row, col);
     this.setState({ grid: newGrid });
-    console.log("handleMouseEnter");
+    console.log("node-%s-%s", row, col);
   }
 
   handleMouseUp() {
     this.setState({ mouseIsPressed: false });
-    console.log("handleMouseUp");
   }
 
   animateDjikstra() {
@@ -84,6 +83,7 @@ export default class Pathfinding extends React.Component {
                   return (
                     <Node
                       key={nodeIdx}
+                      row={row}
                       col={col}
                       isFinish={isFinish}
                       isStart={isStart}
@@ -94,7 +94,6 @@ export default class Pathfinding extends React.Component {
                         this.handleMouseEnter(row, col)
                       }
                       onMouseUp={() => this.handleMouseUp()}
-                      row={row}
                     ></Node>
                   );
                 })}
@@ -125,9 +124,12 @@ const createNode = (row, col) => {
   return {
     col,
     row,
-    isStart: false,
-    isFinish: false,
+    distance: Infinity,
+    isStart: row === START_NODE_ROW && col === START_NODE_COL,
+    isFinish: row === END_NODE_ROW && col === END_NODE_COL,
     isWall: false,
+    isVisited: false,
+    prevNode: null,
   };
 };
 
