@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import Node from "./Node/Node";
-import { djikstra } from "./Algorithms/djikstra";
+import { djikstra, getNodesInShortestPathOrder } from "./Algorithms/djikstra";
 
 import "./Pathfinding.css";
 
@@ -11,6 +11,8 @@ const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
 const END_NODE_ROW = 10;
 const END_NODE_COL = 35;
+
+const ANIMATION_SPEED = 10;
 
 export default class Pathfinding extends React.Component {
   constructor(props) {
@@ -42,12 +44,45 @@ export default class Pathfinding extends React.Component {
     this.setState({ mouseIsPressed: false });
   }
 
+  animateShortestPath(nodesInShortestPathOrder) {
+    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+      setTimeout(() => {
+        const node = nodesInShortestPathOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node shortest-path";
+      }, ANIMATION_SPEED * i);
+    }
+  }
+
   animateDjikstra() {
     const { grid } = this.state;
     const startnode = grid[START_NODE_ROW][START_NODE_COL];
     const endnode = grid[END_NODE_ROW][END_NODE_COL];
     const visitedNodesInOrder = djikstra(grid, startnode, endnode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(endnode);
+
+    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length) {
+        setTimeout(() => {
+          this.animateShortestPath(nodesInShortestPathOrder);
+        }, ANIMATION_SPEED * i);
+
+        return;
+      }
+
+      setTimeout(() => {
+        const node = visitedNodesInOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node visited";
+      }, ANIMATION_SPEED * i);
+    }
   }
+
+  animateAStar() {}
+
+  animateBFS() {}
+
+  animateDFS() {}
 
   resetGrid() {
     const newGrid = InitGrid();
@@ -66,9 +101,15 @@ export default class Pathfinding extends React.Component {
           <Button variant="secondary" onClick={() => this.animateDjikstra()}>
             Djikstra's
           </Button>
-          <Button variant="secondary">A* Search</Button>
-          <Button variant="secondary">Depth-First Search</Button>
-          <Button variant="secondary">Breadth-First Search</Button>
+          <Button variant="secondary" onClick={() => this.animateAStar()}>
+            A* Search
+          </Button>
+          <Button variant="secondary" onClick={() => this.animateDFS()}>
+            Depth-First Search
+          </Button>
+          <Button variant="secondary" onClick={() => this.animateBFS()}>
+            Breadth-First Search
+          </Button>
           <Button variant="primary" onClick={() => this.resetGrid()}>
             Reset
           </Button>
