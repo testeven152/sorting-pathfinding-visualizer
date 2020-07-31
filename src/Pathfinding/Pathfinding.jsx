@@ -37,7 +37,6 @@ export default class Pathfinding extends React.Component {
     if (!this.state.mouseIsPressed) return;
     const newGrid = toggleIsWall(this.state.grid, row, col);
     this.setState({ grid: newGrid });
-    console.log("node-%s-%s", row, col);
   }
 
   handleMouseUp() {
@@ -55,6 +54,8 @@ export default class Pathfinding extends React.Component {
   }
 
   animateDjikstra() {
+    this.clearVisitedNodes();
+
     const { grid } = this.state;
     const startnode = grid[START_NODE_ROW][START_NODE_COL];
     const endnode = grid[END_NODE_ROW][END_NODE_COL];
@@ -78,29 +79,73 @@ export default class Pathfinding extends React.Component {
     }
   }
 
-  animateAStar() {}
+  animateAStar() {
+    this.clearVisitedNodes();
+  }
 
-  animateBFS() {}
+  animateBFS() {
+    this.clearVisitedNodes();
+  }
 
-  animateDFS() {}
+  animateDFS() {
+    this.clearVisitedNodes();
+  }
 
-  resetGrid() {
-    const allNodesInGrid = document.getElementsByClassName("node");
+  clearVisitedNodes() {
+    const newGrid = this.state.grid.slice();
+    const visitedNodes = [
+      ...document.getElementsByClassName("node visited"),
+      ...document.getElementsByClassName("node shortest-path"),
+    ];
 
-    for (let i = 0; i < allNodesInGrid.length; i++) {
-      const split_array = allNodesInGrid[i].id.split("-");
+    if (visitedNodes.length === 0) return;
 
-      const nodeRow = Number(split_array[1]);
-      const nodeCol = Number(split_array[2]);
+    for (let i = 0; i < visitedNodes.length; i++) {
+      const nodeid = visitedNodes[i].id.split("-");
+
+      const nodeRow = Number(nodeid[1]);
+      const nodeCol = Number(nodeid[2]);
 
       if (nodeRow === START_NODE_ROW && nodeCol === START_NODE_COL) {
-        allNodesInGrid[i].className = "node start";
+        visitedNodes[i].className = "node start";
       } else if (nodeRow === END_NODE_ROW && nodeCol === END_NODE_COL) {
-        allNodesInGrid[i].className = "node finish";
+        visitedNodes[i].className = "node finish";
       } else {
-        allNodesInGrid[i].className = "node ";
+        visitedNodes[i].className = "node ";
       }
+
+      visitedNodes[i].prevNode = null;
+
+      newGrid[nodeRow][nodeCol] = createNode(nodeRow, nodeCol);
     }
+
+    this.setState({ grid: newGrid });
+  }
+
+  clearWallNodes() {
+    const newGrid = this.state.grid.slice();
+    const wallNodes = [...document.getElementsByClassName("node wall")];
+    if (wallNodes.length === 0) return;
+
+    for (let j = 0; j < wallNodes.length; j++) {
+      const nodeid = wallNodes[j].id.split("-");
+
+      const nodeRow = Number(nodeid[1]);
+      const nodeCol = Number(nodeid[2]);
+
+      console.log("node-%s-%s", nodeRow, nodeCol);
+
+      wallNodes[j].className = "node ";
+
+      newGrid[nodeRow][nodeCol] = createNode(nodeRow, nodeCol);
+    }
+
+    this.setState({ grid: newGrid });
+  }
+
+  resetGrid() {
+    this.clearVisitedNodes();
+    this.clearWallNodes();
   }
 
   render() {
