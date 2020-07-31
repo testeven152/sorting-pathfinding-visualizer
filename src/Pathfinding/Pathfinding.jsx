@@ -85,8 +85,22 @@ export default class Pathfinding extends React.Component {
   animateDFS() {}
 
   resetGrid() {
-    const newGrid = InitGrid();
-    this.setState({ grid: newGrid });
+    const allNodesInGrid = document.getElementsByClassName("node");
+
+    for (let i = 0; i < allNodesInGrid.length; i++) {
+      const split_array = allNodesInGrid[i].id.split("-");
+
+      const nodeRow = Number(split_array[1]);
+      const nodeCol = Number(split_array[2]);
+
+      if (nodeRow === START_NODE_ROW && nodeCol === START_NODE_COL) {
+        allNodesInGrid[i].className = "node start";
+      } else if (nodeRow === END_NODE_ROW && nodeCol === END_NODE_COL) {
+        allNodesInGrid[i].className = "node finish";
+      } else {
+        allNodesInGrid[i].className = "node ";
+      }
+    }
   }
 
   render() {
