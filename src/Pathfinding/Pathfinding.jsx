@@ -133,8 +133,6 @@ export default class Pathfinding extends React.Component {
       const nodeRow = Number(nodeid[1]);
       const nodeCol = Number(nodeid[2]);
 
-      console.log("node-%s-%s", nodeRow, nodeCol);
-
       wallNodes[j].className = "node ";
 
       newGrid[nodeRow][nodeCol] = createNode(nodeRow, nodeCol);
