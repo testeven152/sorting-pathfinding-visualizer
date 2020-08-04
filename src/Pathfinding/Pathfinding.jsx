@@ -3,7 +3,11 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import Node from "./Node/Node";
-import { djikstra, getNodesInShortestPathOrder } from "./Algorithms/djikstra";
+import { getNodesInShortestPathOrder } from "./Algorithms/getNodesInShortestPathOrder";
+import { djikstra } from "./Algorithms/djikstra";
+import { astar } from "./Algorithms/astar";
+import { bfs } from "./Algorithms/bfs";
+import { dfs } from "./Algorithms/dfs";
 
 import "./Pathfinding.css";
 
