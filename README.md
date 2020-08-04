@@ -1,6 +1,8 @@
-## Sorting & Pathfinding Visualizer
+# Sorting & Pathfinding Visualizer
 
-Application used to visualize the output of various sorting and pathfinding algorithms. I use this project to teach myself and maybe others how these algorithms work while also teaching myself React. You can access the web app [here](https://testeven152.github.io/sorting-pathfinding-visualizer/).
+React application used to visualize the output of various sorting and pathfinding algorithms. I use this project to teach myself how these algorithms work while also teaching myself the React framework.
+
+You can access the web app: [here](https://testeven152.github.io/sorting-pathfinding-visualizer/).
 
 ## Algorithms
 
