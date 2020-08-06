@@ -85,14 +85,80 @@ export default class Pathfinding extends React.Component {
 
   animateAStar() {
     this.clearVisitedNodes();
+
+    const { grid } = this.state;
+    const startnode = grid[START_NODE_ROW][START_NODE_COL];
+    const endnode = grid[END_NODE_ROW][END_NODE_COL];
+    const visitedNodesInOrder = astar(grid, startnode, endnode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(endnode);
+
+    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length) {
+        setTimeout(() => {
+          this.animateShortestPath(nodesInShortestPathOrder);
+        }, ANIMATION_SPEED * i);
+
+        return;
+      }
+
+      setTimeout(() => {
+        const node = visitedNodesInOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node visited";
+      }, ANIMATION_SPEED * i);
+    }
   }
 
   animateBFS() {
     this.clearVisitedNodes();
+
+    const { grid } = this.state;
+    const startnode = grid[START_NODE_ROW][START_NODE_COL];
+    const endnode = grid[END_NODE_ROW][END_NODE_COL];
+    const visitedNodesInOrder = bfs(grid, startnode, endnode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(endnode);
+
+    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length) {
+        setTimeout(() => {
+          this.animateShortestPath(nodesInShortestPathOrder);
+        }, ANIMATION_SPEED * i);
+
+        return;
+      }
+
+      setTimeout(() => {
+        const node = visitedNodesInOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node visited";
+      }, ANIMATION_SPEED * i);
+    }
   }
 
   animateDFS() {
     this.clearVisitedNodes();
+
+    const { grid } = this.state;
+    const startnode = grid[START_NODE_ROW][START_NODE_COL];
+    const endnode = grid[END_NODE_ROW][END_NODE_COL];
+    const visitedNodesInOrder = dfs(grid, startnode, endnode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(endnode);
+
+    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length) {
+        setTimeout(() => {
+          this.animateShortestPath(nodesInShortestPathOrder);
+        }, ANIMATION_SPEED * i);
+
+        return;
+      }
+
+      setTimeout(() => {
+        const node = visitedNodesInOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node visited";
+      }, ANIMATION_SPEED * i);
+    }
   }
 
   clearVisitedNodes() {
